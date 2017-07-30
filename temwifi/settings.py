@@ -36,6 +36,7 @@ ADMINS = [
 
 # Application definition
 INTERNAL_APPS = [
+    'core',
 ]
 
 EXTERNAL_APPS = [
