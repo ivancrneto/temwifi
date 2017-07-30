@@ -104,3 +104,6 @@ ENV/
 local_settings.py
 .DS_Store
 staticfiles/
+
+# Sqlite
+db.sqlite3
