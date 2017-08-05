@@ -8,3 +8,4 @@ class PlacesListView(ListView):
 
     model = Place
     context_object_name = 'places'
+    template_name = 'core/place_list.jinja'
