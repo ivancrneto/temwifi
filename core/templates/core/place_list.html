@@ -1,0 +1,8 @@
+<h1>Places</h1>
+<ul>
+{% for place in places %}
+    <li>{{ place.name }} - {{ place.address }}</li>
+{% empty %}
+    <li>No places yet.</li>
+{% endfor %}
+</ul>
