@@ -1,9 +1,10 @@
+from django_extensions.db.models import TimeStampedModel
 from django.db import models
 from django.db.models import Avg
 from django.utils.translation import ugettext_lazy as _
 
 
-class Place(models.Model):
+class Place(TimeStampedModel):
 
     name = models.CharField(_('Name'), max_length=100)
     address = models.CharField(_('Address'), max_length=255)
@@ -33,7 +34,7 @@ class Place(models.Model):
         return self.ratings.aggregate(Avg('overall'))
 
 
-class InternetRating(models.Model):
+class InternetRating(TimeStampedModel):
 
     LESS_THAN_1_MBIT = 1
     BETWEEN_1_AND_3_MBIT = 3
@@ -58,10 +59,11 @@ class InternetRating(models.Model):
     exists = models.BooleanField(_('Exists'), default=False)
     speed = models.IntegerField(choices=SPEED_CHOICES, blank=True, null=True)
     is_open = models.BooleanField(_('Is Open'), default=False)
-    password = models.CharField(_('Password'), max_length=200, null=True, blank=True)
+    password = models.CharField(
+        _('Password'), max_length=200, null=True, blank=True)
 
 
-class Rating(models.Model):
+class Rating(TimeStampedModel):
 
     place = models.ForeignKey('core.Place', related_name='ratings')
     internet = models.OneToOneField('core.InternetRating')
