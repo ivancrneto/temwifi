@@ -1,27 +1,82 @@
 {% extends "core/base.jinja" %}
 
+{% macro rating(place, field, icon_full, icon_empty, show_empty=True) %}
+
+  {% set full_stars = place.get_ratings()[field]|int %}
+  {% set empty_stars = 5 - full_stars %}
+
+  {% if show_empty %}
+    {% for _ in range(empty_stars) %}
+      <span class="glyphicon {{ icon_empty }} pull-right"></span>
+    {% endfor %}
+  {% endif %}
+
+  {% for _ in range(full_stars) %}
+    <span class="glyphicon {{ icon_full }} pull-right"></span>
+  {% endfor %}
+
+{% endmacro %}
+
 {% block container %}
 <h1>Places</h1>
 <div class="panel list-group">
   {% for place in places %}
-    <a href="#" class="list-group-item" data-toggle="collapse" data-target="#sm"><strong>{{ place.name }}</strong> <small>{{ place.address}}, {{ place.city }}, {{ place.state }}, {{ place.country }}</small>
+    <a href="#" class="list-group-item" data-toggle="collapse" data-target="#sm{{ loop.index }}"><strong>{{ place.name }}</strong> <small>{{ place.address}}, {{ place.city }}, {{ place.state }}, {{ place.country }}</small>
 
-      {% set full_stars = place.get_ratings()['overall__avg']|int %}
-      {% set empty_stars = 5 - full_stars %}
+      {{ rating(place, 'overall__avg', icon_full='glyphicon-star', icon_empty='glyphicon-star-empty') }}
 
-      {% for _ in range(empty_stars) %}
-        <span class="glyphicon glyphicon-star-empty pull-right"></span>
-      {% endfor %}
-
-      {% for _ in range(full_stars) %}
-        <span class="glyphicon glyphicon-star pull-right"></span>
-      {% endfor %}
-
-      &nbsp;&nbsp;<span class="fa fa-wifi"></span> {{ place.get_internet_summary() }}
+      &nbsp;&nbsp;<span class="fa fa-wifi"></span> <small>{{ place.get_internet_summary() }}</small>
     </a>
-     <div id="sm" class="collapse">
-       this is the rest of the place info
+
+    <div id="sm{{ loop.index }}" class="panel-body collapse">
+
+      <div class="col-md-12">
+         {{ place.name }} <small><i>{{ place.get_place_type_display() }}</i></small>
+      </div>
+
+      <div class="col-md-12">
+        <address>{{ place.address}}, {{ place.city }}, {{ place.state }}, {{ place.country }}</address>
+      </div>
+
+      <div class="col-md-12">
+      Internet: &nbsp;&nbsp;<span class="fa fa-wifi"></span> <small>{{ place.get_internet_summary() }}</small>
+      </div>
+
+      <div class="col-md-12">
+        {{ gettext('Customer Service') }}:{{ rating(place, 'customer_service__avg', icon_full='glyphicon-star', icon_empty='glyphicon-star-empty') }}
+      </div>
+      <div class="col-md-12">
+        {{ gettext('Price') }}:{{ rating(place, 'price__avg', icon_full='glyphicon-usd', show_empty=False) }}
+      </div>
+      <div class="col-md-12">
+        {{ gettext('Comfort') }}:{{ rating(place, 'comfort__avg', icon_full='glyphicon-star', icon_empty='glyphicon-star-empty') }}
+      </div>
+      <div class="col-md-12">
+        {{ gettext('Noise') }}:{{ rating(place, 'noise__avg', icon_full='glyphicon-star', icon_empty='glyphicon-star-empty') }}
+      </div>
+      <div class="col-md-12">
+        <h2>{{ gettext('Overall Rating') }}:{{ rating(place, 'overall__avg', icon_full='glyphicon-star', icon_empty='glyphicon-star-empty') }}</h2>
+      </div>
+
+      {% for rating in place.ratings.all() %}
+        <div class="col-md-12">
+          <hr>
+          <h4>{{ gettext('User') }} {{ loop.index }}</h4>
+        </div>
+
+        <div class="col-md-12">
+          <h5>{{ gettext('Drink') }}</h5>
+          <p>{{ rating.drink }}</p>
+        </div>
+
+        <div class="col-md-12">
+          <h5>{{ gettext('Food') }}</h5>
+          <p>{{ rating.food }}</p>
+        </div>
+      {% endfor %}
+
      </div>
+
   {% endfor %}
 </div>
 {% endblock container %}

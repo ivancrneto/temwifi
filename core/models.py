@@ -31,7 +31,9 @@ class Place(TimeStampedModel):
         verbose_name_plural = _('Places')
 
     def get_ratings(self):
-        return self.ratings.aggregate(Avg('overall'))
+        return self.ratings.aggregate(
+            Avg('customer_service'), Avg('price'), Avg('comfort'),
+            Avg('noise'), Avg('overall'))
 
     def get_internet_summary(self):
         rating = self.ratings.first()
