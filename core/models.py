@@ -33,6 +33,19 @@ class Place(TimeStampedModel):
     def get_ratings(self):
         return self.ratings.aggregate(Avg('overall'))
 
+    def get_internet_summary(self):
+        rating = self.ratings.first()
+        internet = rating.internet
+        if not internet.exists:
+            return _('No')
+        if internet.is_open:
+            return '{}, {}, {}'.format(
+                _('Yes'), internet.get_speed_display(), _('Open'))
+        else:
+            return '{}, {}, {}: {}'.format(
+                _('Yes'), internet.get_speed_display(), _('Password'),
+                internet.password)
+
 
 class InternetRating(TimeStampedModel):
 
@@ -75,3 +88,6 @@ class Rating(TimeStampedModel):
     comfort = models.IntegerField(_('Comfort'))
     noise = models.IntegerField(_('Noise'))
     overall = models.IntegerField(_('Overall Rating'))
+
+    class Meta:
+        ordering = ('-created',)
