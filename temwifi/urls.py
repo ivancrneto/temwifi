@@ -14,8 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
+from django.core.urlresolvers import reverse_lazy
 from django.contrib import admin
+from django.views.generic.base import RedirectView
+
+
+from core.views import PlacesListView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', RedirectView.as_view(url=reverse_lazy('places-list')),
+        name='homepage'),
+    url(r'^list/', PlacesListView.as_view(), name='places-list')
 ]

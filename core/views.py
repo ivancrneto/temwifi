@@ -1,3 +1,10 @@
 from django.shortcuts import render
+from django.views.generic.list import ListView
 
-# Create your views here.
+from core.models import Place
+
+
+class PlacesListView(ListView):
+
+    model = Place
+    context_object_name = 'places'
