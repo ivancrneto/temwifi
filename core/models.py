@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -28,10 +29,13 @@ class Place(models.Model):
     class Meta:
         verbose_name_plural = _('Places')
 
+    def get_ratings(self):
+        return self.ratings.aggregate(Avg('overall'))
+
 
 class Rating(models.Model):
 
-    place = models.ForeignKey('core.Place')
+    place = models.ForeignKey('core.Place', related_name='ratings')
 
     internet = models.IntegerField(_('Internet'))
     food = models.IntegerField(_('Food'))
