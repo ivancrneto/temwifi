@@ -30,4 +30,6 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
-      - run: codecov --token=$CODECOV_TOKEN
+      - run: |
+          . venv/bin/activate
+          codecov --token=$CODECOV_TOKEN
