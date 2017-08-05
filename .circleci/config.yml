@@ -1,0 +1,15 @@
+version: 2
+
+jobs:
+  build:
+    working_directory: ~/temwifi
+    docker:
+      - image: circleci/python
+    environment:
+      CODECOV_TOKEN: 972d6afa-92b8-4fcb-9d89-ce1cc37782b6
+    steps:
+      - checkout
+      - run: sudo pip install codecov==1.6.3
+      - run: sudo pip install -r requirements-dev.txt
+      - run: python manage.py test
+      - run: codecov --token=$CODECOV_TOKEN
