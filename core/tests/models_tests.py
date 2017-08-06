@@ -15,7 +15,7 @@ class PlaceModelTest(TestCase):
 
         ratings = place.get_ratings()
         self.assertEqual(ratings['overall__avg'], 1.5)
-        self.assertEqual(len(ratings), 1)
+        self.assertEqual(len(ratings), 5)
 
     def test_get_internet_summary_no_internet(self):
         place = mommy.make('core.Place')
