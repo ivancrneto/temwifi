@@ -12,5 +12,7 @@ omit =
     */*test*.py
     */urls.py
     manage.py
+    jinja2.py
+    wsgi.py
     */*.jinja
     temwifi/settings.py
