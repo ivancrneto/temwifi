@@ -1,6 +1,17 @@
 from django import forms
 
-from core.models import InternetRating, Rating
+from core.models import (
+    InternetRating,
+    Place,
+    Rating
+)
+
+
+class PlaceForm(forms.ModelForm):
+
+    class Meta:
+        fields = '__all__'
+        model = Place
 
 
 class RatingForm(forms.ModelForm):
@@ -10,7 +21,7 @@ class RatingForm(forms.ModelForm):
         model = Rating
 
 
-class InternetForm(forms.ModelForm):
+class InternetRatingForm(forms.ModelForm):
 
     class Meta:
         fields = '__all__'
