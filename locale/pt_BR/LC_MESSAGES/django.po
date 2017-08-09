@@ -188,8 +188,8 @@ msgstr "Avalie"
 
 #: core/tests/models_tests.py:39
 msgid "Yes, Between 3 and 5 Mbps, Open"
-msgstr ""
+msgstr "Sim, Entre 3 e 5 Mbps, Aberta"
 
 #: core/tests/models_tests.py:51
 msgid "Yes, Between 10 and 20 Mbps, Password: abcde123"
-msgstr ""
+msgstr "Sim, Entre 10 e 20 Mbps, Senha: abcde123"
