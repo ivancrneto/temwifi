@@ -1,7 +1,6 @@
 from mox3 import mox
 from django.test import RequestFactory, TestCase
 from model_mommy import mommy
-from unittest import mock
 
 from core import views
 
@@ -10,6 +9,7 @@ class PlacesListViewTest(TestCase):
 
     def setUp(self):
         self.view = views.PlacesListView()
+        self.view.request = RequestFactory().get('')
 
     def test_attr(self):
         self.assertIsInstance(self.view, views.ListView)
