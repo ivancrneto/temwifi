@@ -1,8 +1,8 @@
-from django.views.generic.edit import FormView
+from collections import OrderedDict
 from django.views.generic.list import ListView
 from multi_form_view import MultiModelFormView
 
-from core.forms import InternetForm, RatingForm
+from core.forms import InternetRatingForm, RatingForm
 from core.models import Place
 
 
@@ -16,10 +16,10 @@ class PlacesListView(ListView):
 
 class AddRatingView(MultiModelFormView):
 
-    form_classes = {
-        'rating_form': RatingForm,
-        'internet_form': InternetForm
-    }
+    form_classes = OrderedDict([
+        ('rating_form', RatingForm),
+        ('internet_rating_form', InternetRatingForm),
+    ])
     template_name = 'core/add_rating.jinja'
     success_url = '/list/'
 
