@@ -7,6 +7,17 @@ from core.models import (
 )
 
 
+class PlaceTypeSearchForm(forms.ModelForm):
+
+    class Meta:
+        fields = ('place_type',)
+        model = Place
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['place_type'].required = False
+
+
 class PlaceForm(forms.ModelForm):
 
     class Meta:

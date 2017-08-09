@@ -1,10 +1,12 @@
 from collections import OrderedDict
 from django.contrib import messages
+from django.db.models import Avg, Q
 from django.views.generic.list import ListView
 from multi_form_view import MultiModelFormView
 
 from core.forms import (
     PlaceForm,
+    PlaceTypeSearchForm,
     InternetRatingForm,
     RatingForm
 )
@@ -17,6 +19,41 @@ class PlacesListView(ListView):
     context_object_name = 'places'
     template_name = 'core/place_list.jinja'
     queryset = Place.objects.filter(ratings__isnull=False).distinct()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+
+        context['place_type_search_form'] = PlaceTypeSearchForm()
+        return context
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs).annotate(
+            Avg('ratings__price'))
+        q = self.request.GET.get('q')
+        place_type = self.request.GET.get('place_type')
+
+        filtering = Q()
+
+        if q:
+            filtering |= (
+                Q(address__icontains=q) |
+                Q(city__icontains=q) |
+                Q(state__icontains=q) |
+                Q(country__icontains=q)
+            )
+
+            try:
+                q = float(q)
+            except ValueError:
+                return queryset
+
+            filtering |= Q(ratings__price__avg=q)
+        if place_type:
+            filtering &= Q(place_type=place_type)
+
+        queryset = queryset.filter(filtering)
+
+        return queryset
 
 
 class AddRatingView(MultiModelFormView):
