@@ -2,7 +2,11 @@ from collections import OrderedDict
 from django.views.generic.list import ListView
 from multi_form_view import MultiModelFormView
 
-from core.forms import InternetRatingForm, RatingForm
+from core.forms import (
+    PlaceForm,
+    InternetRatingForm,
+    RatingForm
+)
 from core.models import Place
 
 
@@ -17,6 +21,7 @@ class PlacesListView(ListView):
 class AddRatingView(MultiModelFormView):
 
     form_classes = OrderedDict([
+        ('place_form', PlaceForm),
         ('rating_form', RatingForm),
         ('internet_rating_form', InternetRatingForm),
     ])
@@ -24,7 +29,7 @@ class AddRatingView(MultiModelFormView):
     success_url = '/list/'
 
     def forms_valid(self, forms):
-        internet_rating = forms['internet_form'].save()
+        internet_rating = forms['internet_rating_form'].save()
         forms['rating_form'].instance.internet = internet_rating
         forms['rating_form'].save()
         return super().forms_valid(forms)

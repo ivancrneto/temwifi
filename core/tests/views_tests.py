@@ -35,6 +35,7 @@ class AddRatingViewTest(TestCase):
 
     def test_attr(self):
         expected_form_classes = views.OrderedDict([
+            ('place_form', views.PlaceForm),
             ('rating_form', views.RatingForm),
             ('internet_rating_form', views.InternetRatingForm),
         ])
@@ -43,12 +44,22 @@ class AddRatingViewTest(TestCase):
         self.assertEqual(self.view.success_url, '/list/')
 
     def test_forms_valid(self):
-        form1 = self.mock.CreateMock(views.InternetRatingForm)
-        form2 = self.mock.CreateMock(views.RatingForm)
+        form1 = self.mock.CreateMockAnything()
+        form2 = self.mock.CreateMockAnything()
+        forms = {
+            'internet_rating_form': form1,
+            'rating_form': form2
+        }
 
         self.mock.StubOutWithMock(form1, 'save')
         self.mock.StubOutWithMock(form2, 'save')
+        self.mock.StubOutWithMock(views.MultiModelFormView, 'forms_valid')
 
         # Expected calls
         form1.save()
         form2.save()
+        views.MultiModelFormView.forms_valid(forms)
+
+        self.mock.ReplayAll()
+        self.view.forms_valid(forms)
+        self.mock.VerifyAll()
