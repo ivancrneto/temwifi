@@ -20,7 +20,7 @@ class RatingFormTest(TestCase):
 
     def test_attr(self):
         meta = self.form._meta
-        self.assertEqual(meta.exclude, ('internet',))
+        self.assertEqual(meta.exclude, ('internet', 'place'))
         self.assertEqual(meta.model, forms.Rating)
 
 

@@ -1,5 +1,5 @@
 from mox3 import mox
-from django.test import TestCase
+from django.test import RequestFactory, TestCase
 from model_mommy import mommy
 from unittest import mock
 
@@ -31,6 +31,7 @@ class AddRatingViewTest(TestCase):
 
     def setUp(self):
         self.view = views.AddRatingView()
+        self.view.request = RequestFactory().post('')
         self.mock = mox.Mox()
 
     def test_attr(self):
@@ -46,18 +47,24 @@ class AddRatingViewTest(TestCase):
     def test_forms_valid(self):
         form1 = self.mock.CreateMockAnything()
         form2 = self.mock.CreateMockAnything()
+        form3 = self.mock.CreateMockAnything()
         forms = {
             'internet_rating_form': form1,
-            'rating_form': form2
+            'rating_form': form2,
+            'place_form': form3
         }
 
         self.mock.StubOutWithMock(form1, 'save')
         self.mock.StubOutWithMock(form2, 'save')
+        self.mock.StubOutWithMock(form3, 'save')
+        self.mock.StubOutWithMock(views, 'messages')
         self.mock.StubOutWithMock(views.MultiModelFormView, 'forms_valid')
 
         # Expected calls
         form1.save()
         form2.save()
+        form3.save().AndReturn('mock place')
+        views.messages.success(self.view.request, 'Rating saved with success.')
         views.MultiModelFormView.forms_valid(forms)
 
         self.mock.ReplayAll()
