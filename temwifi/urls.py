@@ -19,11 +19,12 @@ from django.contrib import admin
 from django.views.generic.base import RedirectView
 
 
-from core.views import PlacesListView
+from core.views import AddRatingView, PlacesListView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', RedirectView.as_view(url=reverse_lazy('places-list')),
         name='homepage'),
-    url(r'^list/', PlacesListView.as_view(), name='places-list')
+    url(r'^list/', PlacesListView.as_view(), name='places-list'),
+    url(r'^ratings/add/', AddRatingView.as_view(), name='ratings-add')
 ]
