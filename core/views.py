@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from django.contrib import messages
 from django.views.generic.list import ListView
 from multi_form_view import MultiModelFormView
 
