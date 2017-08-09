@@ -89,6 +89,7 @@ class AddRatingView(MultiModelFormView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
+        context['place_type_search_form'] = PlaceTypeSearchForm()
 
         form_keys = ['place_form', 'internet_rating_form', 'rating_form']
         ordered_forms = OrderedDict(
