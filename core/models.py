@@ -1,4 +1,5 @@
 from django_extensions.db.models import TimeStampedModel
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models import Avg
 from django.utils.translation import ugettext_lazy as _
@@ -88,11 +89,21 @@ class Rating(TimeStampedModel):
 
     food = models.TextField(_('Food'))
     drink = models.TextField(_('Drink'))
-    customer_service = models.IntegerField(_('Customer Service'))
-    price = models.IntegerField(_('Price'))
-    comfort = models.IntegerField(_('Comfort'))
-    noise = models.IntegerField(_('Noise'))
-    overall = models.IntegerField(_('Overall Rating'))
+    customer_service = models.IntegerField(
+        _('Customer Service'),
+        validators=[MinValueValidator(0), MaxValueValidator(5)])
+    price = models.IntegerField(
+        _('Price'),
+        validators=[MinValueValidator(0), MaxValueValidator(5)])
+    comfort = models.IntegerField(
+        _('Comfort'),
+        validators=[MinValueValidator(0), MaxValueValidator(5)])
+    noise = models.IntegerField(
+        _('Noise'),
+        validators=[MinValueValidator(0), MaxValueValidator(5)])
+    overall = models.IntegerField(
+        _('Overall Rating'),
+        validators=[MinValueValidator(0), MaxValueValidator(5)])
 
     class Meta:
         ordering = ('-created',)
