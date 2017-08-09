@@ -26,5 +26,7 @@ urlpatterns = [
     url(r'^$', RedirectView.as_view(url=reverse_lazy('places-list')),
         name='homepage'),
     url(r'^list/', PlacesListView.as_view(), name='places-list'),
-    url(r'^ratings/add/', AddRatingView.as_view(), name='ratings-add')
+    url(r'^ratings/add/$', AddRatingView.as_view(), name='ratings-add'),
+    url(r'^ratings/add/(?P<place_id>\d+)/$', AddRatingView.as_view(),
+        name='ratings-add-place'),
 ]

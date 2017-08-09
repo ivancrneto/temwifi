@@ -34,11 +34,11 @@ class AddRatingViewTest(TestCase):
         self.mock = mox.Mox()
 
     def test_attr(self):
-        expected_form_classes = views.OrderedDict([
-            ('place_form', views.PlaceForm),
-            ('rating_form', views.RatingForm),
-            ('internet_rating_form', views.InternetRatingForm),
-        ])
+        expected_form_classes = {
+            'rating_form': views.RatingForm,
+            'internet_rating_form': views.InternetRatingForm,
+            'place_form': views.PlaceForm,
+        }
         self.assertEqual(self.view.form_classes, expected_form_classes)
         self.assertEqual(self.view.template_name, 'core/add_rating.jinja')
         self.assertEqual(self.view.success_url, '/list/')

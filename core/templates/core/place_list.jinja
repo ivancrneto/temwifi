@@ -32,6 +32,7 @@
 
       <div class="col-md-12">
          {{ place.name }} <small><i>{{ place.get_place_type_display() }}</i></small>
+         <a class="btn btn-default pull-right" href="{{ url('ratings-add-place', args=[place.id]) }}">Add your rating</a>
       </div>
 
       <div class="col-md-12">

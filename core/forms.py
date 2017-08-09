@@ -17,7 +17,7 @@ class PlaceForm(forms.ModelForm):
 class RatingForm(forms.ModelForm):
 
     class Meta:
-        exclude = ('internet',)
+        exclude = ('internet', 'place')
         model = Rating
 
 
