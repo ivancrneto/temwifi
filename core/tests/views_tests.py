@@ -1,5 +1,6 @@
 from mox3 import mox
 from django.test import RequestFactory, TestCase
+from django.utils.translation import ugettext_lazy as _
 from model_mommy import mommy
 
 from core import views
@@ -64,7 +65,8 @@ class AddRatingViewTest(TestCase):
         form1.save()
         form2.save()
         form3.save().AndReturn('mock place')
-        views.messages.success(self.view.request, 'Rating saved with success.')
+        views.messages.success(
+            self.view.request, _('Rating saved with success.'))
         views.MultiModelFormView.forms_valid(forms)
 
         self.mock.ReplayAll()
