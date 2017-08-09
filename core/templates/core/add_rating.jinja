@@ -8,12 +8,12 @@
 {% endif %}
 <form action="" method="post">{% csrf_token %}
     {% for form_name, form_obj in forms.items() %}
-        <h3>{{ gettext(form_name.split('_')[0].title()) }}</h3>
+        <h3 class="top20">{{ gettext(form_name.split('_')[0].title()) }}</h3>
         {% for field in form_obj %}
             {% if field.errors %}
                 <div class="form-group has-error">
-                    <label class="col-sm-2 control-label" for="id_{{ field.name }}">{{ field.label }}</label>
-                    <div class="col-sm-10">
+                    <label class="col-sm-2 control-label top10" for="id_{{ field.name }}">{{ field.label }}</label>
+                    <div class="col-sm-10 top10">
                         {{ field|attr("class=form-control") }}
                         <span class="help-block">
                             {% for error in field.errors %}{{ error }}{% endfor %}
@@ -22,8 +22,8 @@
                 </div>
             {% else %}
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="id_{{ field.name }}">{{ field.label }}</label>
-                    <div class="col-sm-10">
+                    <label class="col-sm-2 control-label top10" for="id_{{ field.name }}">{{ field.label }}</label>
+                    <div class="col-sm-10 top10">
                         {{ field|attr("class=form-control") }}
                         {% if field.help_text %}
                             <p class="help-block"><small>{{ field.help_text }}</small></p>
@@ -32,10 +32,11 @@
                 </div>
             {% endif %}
         {% endfor %}
+        <hr>
     {% endfor %}
     <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-primary">{{ gettext("Submit") }}</button>
+        <div class="col-sm-offset-2 col-sm-10 top10">
+            <button type="submit" class="btn btn-primary pull-right">{{ gettext("Submit") }}</button>
         </div>
     </div>
 
