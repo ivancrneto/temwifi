@@ -66,6 +66,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'temwifi.urls'
 
+from django_jinja.builtins import DEFAULT_EXTENSIONS
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django_jinja.backend.Jinja2',
@@ -83,6 +86,10 @@ TEMPLATES = [
                 "django.template.context_processors.i18n",
                 "django.template.context_processors.media",
                 "django.template.context_processors.request",
+            ],
+            'extensions': DEFAULT_EXTENSIONS + [
+                'django_jinja.builtins.extensions.DjangoExtraFiltersExtension',
+                'temwifi.jinja2.DjangoCustomExtraFiltersExtension',
             ]
         },
     },
