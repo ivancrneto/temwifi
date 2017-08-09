@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from core.models import (
     InternetRating,
@@ -48,22 +49,28 @@ class InternetRatingForm(forms.ModelForm):
 
         if not exists and (speed or is_open or password):
             self.add_error(
-                'exists', 'This field is required when you fill the others '
-                'below.')
+                'exists',
+                _('This field is required when you fill the others below.')
+            )
 
         if exists and not speed:
             self.add_error(
-                'speed', 'This field is required you check that there is '
-                'internet.')
+                'speed',
+                _('This field is required when you check that there is '
+                  'internet.')
+            )
 
         if not is_open and not password:
             self.add_error(
-                'password', 'This field is required you check that the '
-                'internet is not open.')
+                'password',
+                _('This field is required when you check that the internet is '
+                  'not open.')
+            )
 
         if is_open and password:
             self.add_error(
-                'is_open', 'This field must be unchecked when you fill a '
-                'password.')
+                'is_open',
+                _('This field must be unchecked when you fill a password.')
+            )
 
         return cleaned_data

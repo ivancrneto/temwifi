@@ -2,6 +2,7 @@ from collections import OrderedDict
 from django.contrib import messages
 from django.db.models import Avg, Q
 from django.views.generic.list import ListView
+from django.utils.translation import ugettext_lazy as _
 from multi_form_view import MultiModelFormView
 
 from core.forms import (
@@ -77,7 +78,7 @@ class AddRatingView(MultiModelFormView):
         forms['rating_form'].instance.internet = internet_rating
         forms['rating_form'].save()
 
-        messages.success(self.request, 'Rating saved with success.')
+        messages.success(self.request, _('Rating saved with success.'))
         return super().forms_valid(forms)
 
     def get_forms(self):

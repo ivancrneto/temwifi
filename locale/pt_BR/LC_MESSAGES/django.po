@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-09 05:45-0300\n"
-"PO-Revision-Date: 2017-08-09 05:46-0300\n"
+"POT-Creation-Date: 2017-08-09 08:01-0300\n"
+"PO-Revision-Date: 2017-08-09 08:02-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -17,6 +17,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.0.3\n"
+
+#: core/forms.py:53
+msgid "This field is required when you fill the others below."
+msgstr "Este campo é obrigatório quando você preenche os outros abaixo."
+
+#: core/forms.py:59
+msgid "This field is required when you check that there is internet."
+msgstr "Este campo é obrigatório quando você marca que há internet."
+
+#: core/forms.py:66
+msgid "This field is required when you check that the internet is not open."
+msgstr "Este campo é obrigatório quando você preenche que a internet não é aberta."
+
+#: core/forms.py:73
+msgid "This field must be unchecked when you fill a password."
+msgstr "Este campo precisa ser desmarcado quando você preenche uma senha."
 
 #: core/models.py:10
 msgid "Name"
@@ -174,11 +190,11 @@ msgstr "Lista"
 msgid "New Rating"
 msgstr "Nova Avaliação"
 
-#: core/templates/core/base.jinja:65
+#: core/templates/core/base.jinja:66
 msgid "Search"
 msgstr "Pesquisa"
 
-#: core/templates/core/base.jinja:67
+#: core/templates/core/base.jinja:68
 msgid "Submit"
 msgstr "Enviar"
 
@@ -193,3 +209,7 @@ msgstr "Sim, Entre 3 e 5 Mbps, Aberta"
 #: core/tests/models_tests.py:51
 msgid "Yes, Between 10 and 20 Mbps, Password: abcde123"
 msgstr "Sim, Entre 10 e 20 Mbps, Senha: abcde123"
+
+#: core/views.py:81
+msgid "Rating saved with success."
+msgstr "Avaliação salva com sucesso."
