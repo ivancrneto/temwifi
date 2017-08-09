@@ -90,7 +90,11 @@ TEMPLATES = [
             'extensions': DEFAULT_EXTENSIONS + [
                 'django_jinja.builtins.extensions.DjangoExtraFiltersExtension',
                 'temwifi.jinja2.DjangoCustomExtraFiltersExtension',
-            ]
+                'jinja2.ext.i18n',
+            ],
+            "newstyle_gettext": True,
+            "auto_reload": DEBUG,
+            "translation_engine": "django.utils.translation",
         },
     },
     {
@@ -151,7 +155,7 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'UTC'
 
@@ -160,6 +164,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 
 # Static files (CSS, JavaScript, Images)

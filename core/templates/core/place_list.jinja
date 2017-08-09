@@ -18,7 +18,7 @@
 {% endmacro %}
 
 {% block container %}
-<h1>Places</h1>
+<h1>{{ _('Places') }}</h1>
 <div class="panel list-group">
   {% for place in places %}
     <a href="#" class="list-group-item" data-toggle="collapse" data-target="#sm{{ loop.index }}"><strong>{{ place.name }}</strong> <small>{{ place.address}}, {{ place.city }}, {{ place.state }}, {{ place.country }}</small>
@@ -32,7 +32,7 @@
 
       <div class="col-md-12">
          {{ place.name }} <small><i>{{ place.get_place_type_display() }}</i></small>
-         <a class="btn btn-default pull-right" href="{{ url('ratings-add-place', args=[place.id]) }}">Add your rating</a>
+         <a class="btn btn-default pull-right" href="{{ url('ratings-add-place', args=[place.id]) }}">{{ _('Add your rating') }}</a>
       </div>
 
       <div class="col-md-12">

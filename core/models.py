@@ -26,9 +26,10 @@ class Place(TimeStampedModel):
         (BOOKSTORE, _('Bookstore')),
         (OTHER, _('Other')),
     )
-    place_type = models.IntegerField(choices=TYPE_CHOICES)
+    place_type = models.IntegerField(_('Type'), choices=TYPE_CHOICES)
 
     class Meta:
+        verbose_name = _('Place')
         verbose_name_plural = _('Places')
 
     def __str__(self):
@@ -76,7 +77,8 @@ class InternetRating(TimeStampedModel):
     )
 
     exists = models.BooleanField(_('Exists'), default=False)
-    speed = models.IntegerField(choices=SPEED_CHOICES, blank=True, null=True)
+    speed = models.IntegerField(
+        _('Speed'), choices=SPEED_CHOICES, blank=True, null=True)
     is_open = models.BooleanField(_('Is Open'), default=False)
     password = models.CharField(
         _('Password'), max_length=200, null=True, blank=True)
@@ -106,4 +108,5 @@ class Rating(TimeStampedModel):
         validators=[MinValueValidator(0), MaxValueValidator(5)])
 
     class Meta:
+        verbose_name = _('Rating')
         ordering = ('-created',)

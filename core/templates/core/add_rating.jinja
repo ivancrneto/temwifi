@@ -1,10 +1,10 @@
 {% extends "core/base.jinja" %}
 
 {% block container %}
-<h1>Add Your Rating</h1>
+<h1>{{ _('Add Your Rating') }}</h1>
 
 {% if place %}
-  <h2>Place: {{ place.name }}</h2>
+  <h2>{{ _('Place') }}: {{ place.name }}</h2>
 {% endif %}
 <form action="" method="post">{% csrf_token %}
     {% for form_name, form_obj in forms.items() %}
