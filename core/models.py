@@ -30,6 +30,9 @@ class Place(TimeStampedModel):
     class Meta:
         verbose_name_plural = _('Places')
 
+    def __str__(self):
+        return self.name
+
     def get_ratings(self):
         return self.ratings.aggregate(
             Avg('customer_service'), Avg('price'), Avg('comfort'),
